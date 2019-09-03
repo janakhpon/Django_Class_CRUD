@@ -5,25 +5,29 @@ from django.views.generic import (View, TemplateView, ListView, DetailView, Crea
 from . import models
 
 
+# just index 
 class IndexView(TemplateView):
-    template_name = 'index.html'
+    template_name = 'app/index.html'
 
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
         context['hereval'] = "HERE IS SERVER SIDE VALUE"
         return context
 
+
 class SchoolListView(ListView):
+    context_object_name = 'schools'
     model = models.School
+    template_name = 'app/school_list.html'
 
 class SchoolDetailView(DetailView):
-    context_object_name = 'school_details'
+    context_object_name = 'school_detail'
     model = models.School
-    template_name = 'app/detail.html'
+    template_name = 'app/school_detail.html'
 
 class SchoolCreateView(CreateView):
     fields = ("name", "principal", "location")
-    model = model.School
+    model = models.School
 
 
 class SchoolUpdateView(UpdateView):
