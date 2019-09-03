@@ -33,8 +33,9 @@ class SchoolCreateView(CreateView):
 class SchoolUpdateView(UpdateView):
     fields = ("name", "principal")
     model = models.School
+    template_name = 'app/school_form.html'
 
-class SchooDeleteView(DeleteView):
+class SchoolDeleteView(DeleteView):
     model = models.School
     success_url = reverse_lazy("app:list")
 
