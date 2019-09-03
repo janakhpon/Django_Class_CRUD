@@ -5,9 +5,39 @@ from django.views.generic import (View, TemplateView, ListView, DetailView, Crea
 from . import models
 
 
+# just index 
 class IndexView(TemplateView):
-    template_name = 'index.html'
+    template_name = 'app/index.html'
 
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
-        context[]
+        context['hereval'] = "HERE IS SERVER SIDE VALUE"
+        return context
+
+
+class SchoolListView(ListView):
+    context_object_name = 'schools'
+    model = models.School
+    template_name = 'app/school_list.html'
+
+class SchoolDetailView(DetailView):
+    context_object_name = 'school_detail'
+    model = models.School
+    template_name = 'app/school_detail.html'
+
+class SchoolCreateView(CreateView):
+    fields = ("name", "principal", "location")
+    model = models.School
+
+
+class SchoolUpdateView(UpdateView):
+    fields = ("name", "principal")
+    model = models.School
+
+class SchooDeleteView(DeleteView):
+    model = models.School
+    success_url = reverse_lazy("app:list")
+
+class CBView(View):
+    def get(self,request):
+        return HttpResponse('Class Based View are Cool!')
